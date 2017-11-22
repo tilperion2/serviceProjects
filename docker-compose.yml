@@ -1,0 +1,13 @@
+version: '2.1'
+services:
+  base-service:
+    build: ./base
+    image: my/base
+    ports:
+      - 8080:8080
+
+  middle-service:
+      build: ./middle
+      image: my/middle
+      ports:
+        - 8090:8080
