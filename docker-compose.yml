@@ -7,7 +7,9 @@ services:
       - 8080:8080
 
   middle-service:
-      build: ./middle
-      image: my/middle
-      ports:
-        - 8090:8080
+    build: ./middle
+    image: my/middle
+    environment:
+      - BASE_SERVICE_HOST=base-service
+    ports:
+      - 8090:8080

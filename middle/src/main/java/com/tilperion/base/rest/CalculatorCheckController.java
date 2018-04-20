@@ -1,6 +1,7 @@
 package com.tilperion.base.rest;
 
 
+import com.tilperion.base.client.CalculationClient;
 import com.tilperion.base.service.CalculatorChecker;
 import com.tilperion.common.dto.ResponseDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,20 +13,22 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class CalculatorCheckController {
 
-    private final CalculatorChecker calculatorChecker;
-
     @Autowired
-    public CalculatorCheckController(CalculatorChecker calculatorChecker) {
-        this.calculatorChecker = calculatorChecker;
-    }
+    private CalculationClient calculationClient;
 
     @RequestMapping(value="checkPi", method = RequestMethod.GET)
     public ResponseDto checkPi(@RequestParam(name = "precision", defaultValue = "10", required = false) Integer precision) {
-        return new ResponseDto("This is BASE test!", "400ms");
+        ResponseDto pi = calculationClient.getPi(precision);
+        return pi;
     }
 
-    @RequestMapping(value="checkSinCos", method = RequestMethod.GET)
-    public ResponseDto checkSinCos(@RequestParam(name = "precision", defaultValue = "10", required = false) Integer precision) {
-        return new ResponseDto("This is BASE test!", "400ms");
+    @RequestMapping(value="checkSin", method = RequestMethod.GET)
+    public ResponseDto checkSin(@RequestParam(name = "x", required = true) double x, @RequestParam(name = "precision", defaultValue = "10", required = false) Integer precision) {
+        return calculationClient.getSin(x, precision);
+    }
+
+    @RequestMapping(value="checkCos", method = RequestMethod.GET)
+    public ResponseDto checkCos(@RequestParam(name = "x", required = true) double x, @RequestParam(name = "precision", defaultValue = "10", required = false) Integer precision) {
+        return calculationClient.getCos(x, precision);
     }
 }
