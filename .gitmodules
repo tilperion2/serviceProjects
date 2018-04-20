@@ -1,0 +1,3 @@
+[submodule "base"]
+	path = base
+	url = https://tilperion2@github.com/tilperion2/baseService.git
